@@ -1,0 +1,37 @@
+customer_num = int(input())
+greentea = list(map(int, input().split()))
+# greentea = [i%2 for i in range(100000)]
+
+add = [1, 2, 4]
+max_tea = max(greentea)
+count = 0
+max_value = [0, 0]
+
+temp_dict = {1:0, 2:0, 4:0}
+for tea in greentea:
+    gap = max_tea - tea
+    # print(gap)
+
+    if gap // 7 > 0:
+        temp_dict[1] += 1 * (gap//7)
+        temp_dict[2] += 1 * (gap//7)
+        temp_dict[4] += 1 * (gap//7)
+        gap = gap%7
+
+    temp_dict[4] += gap//4
+    if gap // 4 != 0:
+        gap %= 4
+    temp_dict[2] += gap//2
+    if gap // 2 != 0:
+        gap %= 2
+    temp_dict[1] += gap
+# print(temp_dict)
+# if list(temp_dict.values())[0] == list(temp_dict.values())[1] == list(temp_dict.values())[2]:
+#     count = list(temp_dict.values())[0] * 3
+# else:
+for index, value in enumerate(temp_dict.values()):
+    if value >= max_value[1]:
+        max_value = [index, value]
+# print(max_value)
+count = max_value[1] * 3 - (2 - max_value[0])
+print(count)
